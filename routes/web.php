@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\ToDoController;
+use App\Http\Controllers\ToDoController;
+use App\Http\Controllers\DiaryController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -12,3 +13,6 @@ Route::get('/why', function () {
 
 Route::get('/todos', [ToDoController::class, 'index']);
 
+Route::get("/todo/{todo}", [ToDoController::class, 'show']);
+
+Route::get('/diary', [DiaryController::class, 'index']);
