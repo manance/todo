@@ -10,4 +10,8 @@ class DiaryController extends Controller
         $last_todos = Diary::all();
         return view('diary.index', compact('last_todos'));
     }
+    public function show($last_todos){
+        $last_todo = Diary::findOrFail($last_todos);
+        return view('diary.show', compact('last_todo'));
+    }
 }

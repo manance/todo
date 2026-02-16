@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Why</title>
-</head>
-<body>
-    <h1>Kapēc Laravel?</h1>
-</body>
-</html>
+<x-layout>
+    <x-slot:title>Kapēc?</x-slot:title>
+    <h1>Kapēc?</h1>
+</x-layout>

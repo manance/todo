@@ -12,7 +12,7 @@ Route::get('/why', function () {
 });
 
 Route::get('/todos', [ToDoController::class, 'index']);
-
 Route::get("/todo/{todo}", [ToDoController::class, 'show']);
 
 Route::get('/diary', [DiaryController::class, 'index']);
+Route::get('/diary/{diary}', [DiaryController::class, 'show']);
