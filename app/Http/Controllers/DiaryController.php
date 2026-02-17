@@ -7,11 +7,26 @@ use Illuminate\Http\Request;
 class DiaryController extends Controller
 {
     public function index(){
-        $last_todos = Diary::all();
-        return view('diary.index', compact('last_todos'));
+        $diaries = Diary::all();
+        return view('diary.index', compact('diaries'));
     }
-    public function show($last_todos){
-        $last_todo = Diary::findOrFail($last_todos);
-        return view('diary.show', compact('last_todo'));
+    public function show(Diary $diary){
+        return view('diary.show', compact('diary'));
+    }
+    public function create(){
+        return view("diary.create");
+    }
+    public function store(Request $request){
+        $validated = $request->validate([
+            "title" => "required|max:100",
+            "body" => "required",
+            "date" => "required|date"
+        ]);
+        Diary::create([
+            "title" => $validated["title"],
+            "body" => $validated["body"],
+            "date" => $validated["date"]
+        ]);
+        return redirect("/diary");
     }
 }
