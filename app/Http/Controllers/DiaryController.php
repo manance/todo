@@ -13,8 +13,8 @@ class DiaryController extends Controller
     public function show(Diary $diary){
         return view('diary.show', compact('diary'));
     }
-    public function create(){
-        return view("diary.create");
+    public function create(Diary $diary){
+        return view("diary.create", compact('diary'));
     }
     public function store(Request $request){
         $validated = $request->validate([

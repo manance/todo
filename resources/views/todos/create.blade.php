@@ -3,7 +3,7 @@
     <h1>Izveido uzdevumu!</h1>
     <form method="POST" action="/todos">
         @csrf
-        <input name="content">
+        <input name="content" value="{{ old('content', $todo->content) }}">
         @error("content")
             <p>{{ $message }}</p>
         @enderror

@@ -15,8 +15,8 @@ class ToDoController extends Controller{
         return view('todos.show', compact('todo'));
     }
 
-    public function create(){
-        return view('todos.create');
+    public function create(ToDO $todo){
+        return view('todos.create', compact('todo'));
     }
 
     public function store(Request $request){
