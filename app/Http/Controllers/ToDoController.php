@@ -39,9 +39,16 @@ class ToDoController extends Controller{
             "content" => ["required", "max:255"],
             "completed" => ["boolean"]
         ]);
-        $todo->content = $validated["content"];
-        $todo->completed = $validated["completed"];
+        $todo->update([
+            "content" => $validated["content"],
+            "completed" => $validated["completed"]
+        ]);
         $todo->save();
         return redirect("/todos/$todo->id");
+    }
+
+    public function destroy(ToDo $todo){
+        $todo->delete();
+        return redirect("/todos");
     }
 }

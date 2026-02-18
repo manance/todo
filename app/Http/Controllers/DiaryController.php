@@ -38,10 +38,17 @@ class DiaryController extends Controller
             "body" => ["required"],
             "date" => ["required", "date"]
         ]);
-        $diary->title = $request["title"];
-        $diary->body = $request["body"];
-        $diary->date = $request["date"];
+        $diary->update([
+            "title" => $validated["title"],
+            "body" => $validated["body"],
+            "date" => $validated["date"]
+        ]);
         $diary->save();
         return redirect("/diary/$diary->id");
+    }
+
+    public function destroy(Diary $diary){
+        $diary->delete();
+        return redirect("/diary");
     }
 }
