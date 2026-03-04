@@ -17,6 +17,8 @@ Route::get('/profile', function () {
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 Route::delete('/logout', [SessionController::class, 'destroy']);
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
 
 Route::get('/todos', [ToDoController::class, 'index']);
 Route::get('/todos/create', [ToDoController::class, 'create']);

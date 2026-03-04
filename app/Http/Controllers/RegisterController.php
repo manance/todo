@@ -13,9 +13,10 @@ class RegisterController extends Controller
         return view('auth.register');
     }
     public function store(Request $request){
+        
         $validated = $request->validate([
-            "first_name" => ["required", "max:50"],
-            "last_name" => ["required", "max:50"],
+            "first_name" => ["required", "max:255"],
+            "last_name" => ["required", "max:255"],
             "email" => ["required", "email", Rule::unique("users", "email")],
             "password" => ["required", Password::min(6)->numbers()->letters()->symbols(), "confirmed"]
         ]);

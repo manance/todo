@@ -4,6 +4,7 @@
             @guest
             <li><a href="/">Sākums</a></li>
             <li><a href="/register">Pierakstīties</a></li>
+            <li><a href="/login">Pieteikties</a></li>
             @endguest
             @auth
             <li><a href="/todos">Visi uzdevumi</a></li>

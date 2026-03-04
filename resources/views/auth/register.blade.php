@@ -10,10 +10,11 @@
             @endforeach
         </ul>
         @endif
-        <label>Vārds: <input type="text" name="first_name"></label>
-        <label>Uzvārds: <input type="text" name="last_name"></label>
-        <lable>E-pasts: <input type="email" name="email"></lable>
+        <label>Vārds: <input type="text" name="first_name" required value="{{ old('first_name', '') }}"></label>
+        <label>Uzvārds: <input type="text" name="last_name" required value="{{ old('last_name', '') }}"></label>
+        <label>E-pasts: <input type="email" name="email"  required value="{{ old('email', '') }}"></label>
         <label>Parole: <input type="password" name="password"></label>
         <label>Apstiprini paroli: <input type="password" name="password_confirmation"></label>
+        <button>Pierakstīties</button>
     </form>
 </x-layout>
