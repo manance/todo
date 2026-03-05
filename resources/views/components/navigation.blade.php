@@ -8,10 +8,10 @@
             @endguest
             @auth
             <li><a href="/todos">Visi uzdevumi</a></li>
+            <li><a href="/todos/create">Pievieno uzdevumu</a></li>
             <li><a href="/diary">Dienasgrāmata</a></li>
-            <li><a href="/diary/create">Pievieno pabeigto</a></li>
+            <li><a href="/diary/create">Pievienot dienasgrāmatas ierakstu</a></li>
             <li><a href="/profile">Profils</a></li>
-            <li><a href="/todos/create">Pievienot</a></li>
             @endauth
         </ul>
     </nav>

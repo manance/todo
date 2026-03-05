@@ -15,6 +15,6 @@
         @error("date")
         <p>{{ $message }}</p>
         @enderror
-        <button>Saglabāt</button>
+        <button name="id" value="{{ Auth::user()->id }}">Saglabāt</button>
     </form>
 </x-layout>

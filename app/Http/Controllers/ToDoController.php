@@ -1,36 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\ToDo;
 use Illuminate\Http\Request;
 
 class ToDoController extends Controller{
-    public function index(){
-        $todos = ToDo::all();
+    public function index(User $user){
+        $todos = $user->todos();
         return view('todos.index', compact('todos'));
     }
 
-    public function show(ToDo $todo){
-        return view('todos.show', compact('todo'));
+    public function show(ToDo $todo, User $user){
+        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
+        return view('todos.show', compact('user_todo'));
     }
 
-    public function create(ToDO $todo){
+    public function create(ToDO $todo, User $user){
+        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
         return view('todos.create', compact('todo'));
     }
 
     public function store(Request $request){
         $validated = $request->validate([
-            "content" => "required|max:255"
+            "content" => "required|max:255",
+            "priority" => ["required"],
+            "id" => ["required"]
         ]);
         ToDo::create([
             "content" => $validated["content"],
-            "completed" => false
+            "priority" => $validated["priority"],
+            "completed" => false,
+            "user_id" => $validated["id"]
         ]);
+        $request->session()->regenerate();
         return redirect("/todos");
     }
 
-    public function edit(ToDo $todo){
+    public function edit(ToDo $todo, User $user){
+        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
         return view('todos.edit', compact('todo'));
     }
 
@@ -44,6 +52,7 @@ class ToDoController extends Controller{
             "completed" => $validated["completed"]
         ]);
         $todo->save();
+        $request->session()->regenerate();
         return redirect("/todos/$todo->id");
     }
 

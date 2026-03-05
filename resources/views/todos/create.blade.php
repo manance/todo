@@ -7,6 +7,11 @@
         @error("content")
             <p>{{ $message }}</p>
         @enderror
-        <button>Saglabāt</button>
+        <label>Prioritāte: <select name="priority">
+            <option value="low">Zema</option>
+            <option value="medium">Vidēja</option>
+            <option value="high">Augsta</option>
+        </select></label>
+        <button name="id" value="{{ Auth::user()->id }}">Saglabāt</button>
     </form>
 </x-layout>
