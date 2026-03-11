@@ -1,27 +1,34 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\ToDo;
 use Illuminate\Http\Request;
 
-class ToDoController extends Controller{
-    public function index(User $user){
+class ToDoController extends Controller
+{
+    public function index(User $user)
+    {
+
         $todos = $user->todos();
         return view('todos.index', compact('todos'));
     }
 
-    public function show(ToDo $todo, User $user){
-        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
-        return view('todos.show', compact('user_todo'));
+    public function show(ToDo $todo)
+    {
+        $todo = ToDo::where('user_id', Auth::id())->firstOrFail();
+        return view('todos.show', compact('todo'));
     }
 
-    public function create(ToDO $todo, User $user){
-        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
-        return view('todos.create', compact('todo'));
+    public function create()
+    {
+        return view('todos.create');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             "content" => "required|max:255",
             "priority" => ["required"],
@@ -37,12 +44,14 @@ class ToDoController extends Controller{
         return redirect("/todos");
     }
 
-    public function edit(ToDo $todo, User $user){
-        $todo = ToDo::where('user_id', $user->id)->firstOrFail();
+    public function edit(ToDo $todo)
+    {
+        $todo = ToDo::where('user_id', Auth::id())->firstOrFail();
         return view('todos.edit', compact('todo'));
     }
 
-    public function update(Request $request, ToDo $todo){
+    public function update(Request $request, ToDo $todo)
+    {
         $validated = $request->validate([
             "content" => ["required", "max:255"],
             "completed" => ["boolean"]
@@ -56,7 +65,8 @@ class ToDoController extends Controller{
         return redirect("/todos/$todo->id");
     }
 
-    public function destroy(ToDo $todo){
+    public function destroy(ToDo $todo)
+    {
         $todo->delete();
         return redirect("/todos");
     }

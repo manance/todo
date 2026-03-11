@@ -15,9 +15,8 @@ class DiaryController extends Controller
         $diary = Diary::where('user_id', $user->id)->firstOrFail();
         return view('diary.show', compact('diary'));
     }
-    public function create(Diary $diary, User $user){
-        $diary = Diary::where('user_id', $user->id)->firstOrFail();
-        return view("diary.create", compact('diary'));
+    public function create(){
+        return view("diary.create");
     }
     public function store(Request $request){
         $validated = $request->validate([
