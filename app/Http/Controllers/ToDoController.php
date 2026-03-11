@@ -18,7 +18,9 @@ class ToDoController extends Controller
 
     public function show(ToDo $todo)
     {
-        $todo = ToDo::where('user_id', Auth::id())->firstOrFail();
+        if ($todo->user_id !== Auth::id()) {
+            abort(404, "Page not found.");
+        }
         return view('todos.show', compact('todo'));
     }
 
@@ -46,7 +48,9 @@ class ToDoController extends Controller
 
     public function edit(ToDo $todo)
     {
-        $todo = ToDo::where('user_id', Auth::id())->firstOrFail();
+        if ($todo->user_id !== Auth::id()) {
+            abort(404, "Page not found.");
+        }
         return view('todos.edit', compact('todo'));
     }
 

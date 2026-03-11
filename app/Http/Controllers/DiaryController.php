@@ -9,18 +9,24 @@ use Illuminate\Http\Request;
 
 class DiaryController extends Controller
 {
-    public function index(User $user){
+    public function index(User $user)
+    {
         $diaries = $user->diaries();
         return view('diary.index', compact('diaries'));
     }
-    public function show(Diary $diary, User $user){
-        $diary = Diary::where('user_id', Auth::id())->firstOrFail();
+    public function show(Diary $diary)
+    {
+        if($diary->user_id !== Auth::id()){
+            abort(404, "Page not found.");
+        }
         return view('diary.show', compact('diary'));
     }
-    public function create(){
+    public function create()
+    {
         return view("diary.create");
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             "title" => "required|max:100",
             "body" => "required",
@@ -36,11 +42,15 @@ class DiaryController extends Controller
         $request->session()->regenerate();
         return redirect("/diary");
     }
-    public function edit(Diary $diary, User $user){
-        $diary = Diary::where('user_id', Auth::id())->firstOrFail();
+    public function edit(Diary $diary, User $user)
+    {
+        if ($diary->user_id !== Auth::id()) {
+            abort(404, "Page not found.");
+        }
         return view("diary.edit", compact("diary"));
     }
-    public function update(Request $request, Diary $diary){
+    public function update(Request $request, Diary $diary)
+    {
         $validated = $request->validate([
             "title" => ["required", "max:100"],
             "body" => ["required"],
@@ -56,7 +66,8 @@ class DiaryController extends Controller
         return redirect("/diary/$diary->id");
     }
 
-    public function destroy(Diary $diary){
+    public function destroy(Diary $diary)
+    {
         $diary->delete();
         return redirect("/diary");
     }
