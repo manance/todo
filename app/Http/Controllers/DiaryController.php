@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
 use App\Models\Diary;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ class DiaryController extends Controller
         return view('diary.index', compact('diaries'));
     }
     public function show(Diary $diary, User $user){
-        $diary = Diary::where('user_id', $user->id)->firstOrFail();
+        $diary = Diary::where('user_id', Auth::id())->firstOrFail();
         return view('diary.show', compact('diary'));
     }
     public function create(){
@@ -35,7 +37,7 @@ class DiaryController extends Controller
         return redirect("/diary");
     }
     public function edit(Diary $diary, User $user){
-        $diary = Diary::where('user_id', $user->id)->firstOrFail();
+        $diary = Diary::where('user_id', Auth::id())->firstOrFail();
         return view("diary.edit", compact("diary"));
     }
     public function update(Request $request, Diary $diary){
